@@ -84,9 +84,6 @@ h6 {
   isolation: isolate;
 }
 
-
-
-
 .background-video {
   position: absolute;
   top: 0;
@@ -96,7 +93,6 @@ h6 {
   object-fit: cover;
   z-index: -2;
   opacity: 0;
-  /* Başlangıçta gizli */
 }
 
 .navbar {

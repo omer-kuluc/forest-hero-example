@@ -9,7 +9,6 @@ function App() {
   const drawerRef = useRef(null);
   const menuTl = useRef(null);
 
-  // Video hazır olduğunda her şeyi yumuşakça görünür yapar
   const handleEntranceAnimation = () => {
     const tl = gsap.timeline();
 
