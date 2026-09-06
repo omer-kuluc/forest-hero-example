@@ -1,4 +1,4 @@
-import React, { useState, useRef, useLayoutEffect } from 'react';
+import React, { useState, useRef, useLayoutEffect, useEffect } from 'react';
 import './App.css';
 import { gsap } from 'gsap';
 
@@ -8,7 +8,9 @@ function App() {
 
   const drawerRef = useRef(null);
   const menuTl = useRef(null);
+  const videoRef = useRef(null); // Video için ref ekledik
 
+  // Giriş animasyonu fonksiyonu
   const handleEntranceAnimation = () => {
     const tl = gsap.timeline();
 
@@ -30,6 +32,30 @@ function App() {
         ease: "power3.out"
       }, "-=0.8");
   };
+
+  // Video autoplay ve önbellek kontrolü
+  useEffect(() => {
+    if (videoRef.current) {
+      // Tarayıcı politikaları için mutlak sessizlik garantisi
+      videoRef.current.defaultMuted = true;
+      videoRef.current.muted = true;
+
+      // Videoyu manuel oynatmayı dene
+      const playPromise = videoRef.current.play();
+
+      if (playPromise !== undefined) {
+        playPromise.catch((error) => {
+          console.log("Autoplay engellendi, etkileşim bekleniyor:", error);
+        });
+      }
+
+      // Eğer video cache'ten yüklendiyse onLoadedData tetiklenmeyebilir.
+      // Hazır olma durumunu manuel kontrol ediyoruz:
+      if (videoRef.current.readyState >= 3) {
+        handleEntranceAnimation();
+      }
+    }
+  }, []);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -61,6 +87,7 @@ function App() {
   return (
     <div className="hero-section">
       <video
+        ref={videoRef} // Ref atadık
         autoPlay
         loop
         muted
