@@ -19,6 +19,23 @@ function App() {
     ));
   };
 
+  // GSAP Hover Animasyonları
+  const handleHoverEnter = (e) => {
+    gsap.to(e.currentTarget, {
+      color: "#ffffff",
+      duration: 0.3,
+      ease: "power2.out"
+    });
+  };
+
+  const handleHoverLeave = (e) => {
+    gsap.to(e.currentTarget, {
+      color: "#d1d1d1",
+      duration: 0.3,
+      ease: "power2.out"
+    });
+  };
+
   // Giriş animasyonu
   const handleEntranceAnimation = () => {
     const tl = gsap.timeline();
@@ -36,7 +53,6 @@ function App() {
         duration: 1,
         ease: "power2.out"
       }, "-=0.5")
-      // Masaüstü Nav elemanları için rastgele belirme efekti
       .to(".desktop-only .reveal-char", {
         opacity: 1,
         duration: 0.05,
@@ -82,7 +98,6 @@ function App() {
           stagger: 0.1,
           ease: "power2.out"
         }, "-=0.4")
-        // Mobil menü açıldığında harflerin rastgele belirmesi
         .to(".mobile-drawer .reveal-char", {
           opacity: 1,
           duration: 0.01,
@@ -122,7 +137,6 @@ function App() {
       <header className="navbar">
         <div className="nav-wrapper">
           <p className="nav-logo desktop-only">{splitText("Forest")}</p>
-          {/* Logo mobil için her zaman görünür kalsın istenirse class düzenlenebilir */}
           <p className="nav-logo menu-toggle-visible-only mobile-only-logo">Forest</p>
 
           <button
@@ -134,7 +148,12 @@ function App() {
 
           <nav className="nav-menu desktop-only">
             {navItems.map((item) => (
-              <div key={item} className="nav-link">
+              <div
+                key={item}
+                className="nav-link"
+                onMouseEnter={handleHoverEnter}
+                onMouseLeave={handleHoverLeave}
+              >
                 <span>{splitText(item)}</span>
                 <div className="arrow-down" />
               </div>
@@ -142,7 +161,13 @@ function App() {
           </nav>
 
           <div className="nav-action desktop-only">
-            <button className="contact-btn">{splitText("Contact")}</button>
+            <button
+              className="contact-btn"
+              onMouseEnter={handleHoverEnter}
+              onMouseLeave={handleHoverLeave}
+            >
+              {splitText("Contact")}
+            </button>
           </div>
         </div>
 

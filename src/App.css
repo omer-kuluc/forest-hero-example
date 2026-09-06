@@ -32,10 +32,11 @@ body {
   display: inline-block;
   white-space: pre;
   opacity: 0;
-  /* GSAP ile açılana kadar gizli */
+  color: inherit;
+  /* Üst elementin rengini alması için */
 }
 
-/* Mobil logo görünürlüğü için ek kural (opsiyonel) */
+/* Mobil logo görünürlüğü */
 .mobile-only-logo {
   display: block;
 }
@@ -222,7 +223,8 @@ h6 {
   border-radius: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
-  color: white;
+  color: #d1d1d1;
+  /* Başlangıç rengi */
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
@@ -255,10 +257,10 @@ h6 {
     align-items: center;
     gap: 0.4rem;
     color: #d1d1d1;
+    /* Başlangıç rengi */
     font-size: 1rem;
     cursor: pointer;
   }
-
 
   .hero-title {
     font-size: clamp(6rem, 12vw, 12rem);
