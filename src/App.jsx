@@ -10,7 +10,6 @@ function App() {
   const menuTl = useRef(null);
   const videoRef = useRef(null);
 
-  // Metni harflere bölen yardımcı fonksiyon
   const splitText = (text) => {
     return text.split("").map((char, index) => (
       <span key={index} className="reveal-char">
@@ -19,7 +18,6 @@ function App() {
     ));
   };
 
-  // GSAP Hover Animasyonları
   const handleHoverEnter = (e) => {
     gsap.to(e.currentTarget, {
       color: "#ffffff",
@@ -36,11 +34,9 @@ function App() {
     });
   };
 
-  // Giriş animasyonu
   const handleEntranceAnimation = () => {
     const tl = gsap.timeline();
 
-    // Animasyon başlamadan önce her şeyi görünür kıl ama opacity 0'dan başla
     tl.set([".background-video", ".navbar", ".hero-container"], { visibility: "visible" });
 
     tl.to(".background-video", {
@@ -54,7 +50,6 @@ function App() {
         duration: 0.8,
         ease: "power2.out"
       }, "-=0.5")
-      // DESKTOP VE TABLET İÇİN HIZLANDIRILMIŞ REVEAL (each: 0.01 ve duration düşürüldü)
       .to(".desktop-only .reveal-char", {
         opacity: 1,
         duration: 0.15,
@@ -100,7 +95,6 @@ function App() {
           stagger: 0.1,
           ease: "power2.out"
         }, "-=0.4")
-        // MOBİL İÇİN AYARLARIN (0.01) KORUNMASI
         .to(".mobile-drawer .reveal-char", {
           opacity: 1,
           duration: 0.01,
