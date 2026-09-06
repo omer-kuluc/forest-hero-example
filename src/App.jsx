@@ -8,11 +8,14 @@ function App() {
 
   const drawerRef = useRef(null);
   const menuTl = useRef(null);
-  const videoRef = useRef(null); // Video için ref ekledik
+  const videoRef = useRef(null);
 
-  // Giriş animasyonu fonksiyonu
+  // Giriş animasyonu: Flaş çakmasını önlemek için set ile görünürlüğü açıyoruz
   const handleEntranceAnimation = () => {
     const tl = gsap.timeline();
+
+    // Animasyon başlamadan hemen önce görünürlüğü aktif et
+    tl.set([".background-video", ".navbar", ".hero-container"], { visibility: "visible" });
 
     tl.to(".background-video", {
       opacity: 1,
@@ -33,24 +36,15 @@ function App() {
       }, "-=0.8");
   };
 
-  // Video autoplay ve önbellek kontrolü
   useEffect(() => {
     if (videoRef.current) {
-      // Tarayıcı politikaları için mutlak sessizlik garantisi
       videoRef.current.defaultMuted = true;
       videoRef.current.muted = true;
-
-      // Videoyu manuel oynatmayı dene
       const playPromise = videoRef.current.play();
-
       if (playPromise !== undefined) {
-        playPromise.catch((error) => {
-          console.log("Autoplay engellendi, etkileşim bekleniyor:", error);
-        });
+        playPromise.catch(() => { });
       }
-
-      // Eğer video cache'ten yüklendiyse onLoadedData tetiklenmeyebilir.
-      // Hazır olma durumunu manuel kontrol ediyoruz:
+      // Video cache'ten hızlı yüklenirse onLoadedData kaçabilir, kontrol ediyoruz:
       if (videoRef.current.readyState >= 3) {
         handleEntranceAnimation();
       }
@@ -87,7 +81,7 @@ function App() {
   return (
     <div className="hero-section">
       <video
-        ref={videoRef} // Ref atadık
+        ref={videoRef}
         autoPlay
         loop
         muted
