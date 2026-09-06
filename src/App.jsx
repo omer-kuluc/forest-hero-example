@@ -10,11 +10,19 @@ function App() {
   const menuTl = useRef(null);
   const videoRef = useRef(null);
 
-  // Giriş animasyonu: Flaş çakmasını önlemek için set ile görünürlüğü açıyoruz
+  // Metni harflere bölen yardımcı fonksiyon
+  const splitText = (text) => {
+    return text.split("").map((char, index) => (
+      <span key={index} className="reveal-char">
+        {char}
+      </span>
+    ));
+  };
+
+  // Giriş animasyonu
   const handleEntranceAnimation = () => {
     const tl = gsap.timeline();
 
-    // Animasyon başlamadan hemen önce görünürlüğü aktif et
     tl.set([".background-video", ".navbar", ".hero-container"], { visibility: "visible" });
 
     tl.to(".background-video", {
@@ -27,6 +35,15 @@ function App() {
         y: 0,
         duration: 1,
         ease: "power2.out"
+      }, "-=0.5")
+      // Masaüstü Nav elemanları için rastgele belirme efekti
+      .to(".desktop-only .reveal-char", {
+        opacity: 1,
+        duration: 0.05,
+        stagger: {
+          each: 0.03,
+          from: "random"
+        }
       }, "-=0.5")
       .to(".hero-container", {
         opacity: 1,
@@ -44,7 +61,6 @@ function App() {
       if (playPromise !== undefined) {
         playPromise.catch(() => { });
       }
-      // Video cache'ten hızlı yüklenirse onLoadedData kaçabilir, kontrol ediyoruz:
       if (videoRef.current.readyState >= 3) {
         handleEntranceAnimation();
       }
@@ -62,10 +78,19 @@ function App() {
         .from(".mobile-nav-links .nav-link", {
           y: 20,
           opacity: 0,
-          duration: 0.4,
+          duration: 0.1,
           stagger: 0.1,
           ease: "power2.out"
-        }, "-=0.4");
+        }, "-=0.4")
+        // Mobil menü açıldığında harflerin rastgele belirmesi
+        .to(".mobile-drawer .reveal-char", {
+          opacity: 1,
+          duration: 0.01,
+          stagger: {
+            each: 0.01,
+            from: "random"
+          }
+        }, "-=0.3");
     });
     return () => ctx.revert();
   }, []);
@@ -96,23 +121,28 @@ function App() {
 
       <header className="navbar">
         <div className="nav-wrapper">
-          <p className="nav-logo">Forest</p>
+          <p className="nav-logo desktop-only">{splitText("Forest")}</p>
+          {/* Logo mobil için her zaman görünür kalsın istenirse class düzenlenebilir */}
+          <p className="nav-logo menu-toggle-visible-only mobile-only-logo">Forest</p>
+
           <button
             className={`menu-toggle ${isMenuOpen ? 'active' : ''}`}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <span className="icon-text">{isMenuOpen ? '✕' : '☰'}</span>
           </button>
+
           <nav className="nav-menu desktop-only">
             {navItems.map((item) => (
               <div key={item} className="nav-link">
-                <span>{item}</span>
+                <span>{splitText(item)}</span>
                 <div className="arrow-down" />
               </div>
             ))}
           </nav>
+
           <div className="nav-action desktop-only">
-            <button className="contact-btn">Contact</button>
+            <button className="contact-btn">{splitText("Contact")}</button>
           </div>
         </div>
 
@@ -124,10 +154,10 @@ function App() {
           <nav className="mobile-nav-links">
             {navItems.map((item) => (
               <div key={item} className="nav-link" onClick={() => setIsMenuOpen(false)}>
-                <span>{item}</span>
+                <span>{splitText(item)}</span>
               </div>
             ))}
-            <button className="contact-btn">Contact</button>
+            <button className="contact-btn">{splitText("Contact")}</button>
           </nav>
         </div>
       </header>
