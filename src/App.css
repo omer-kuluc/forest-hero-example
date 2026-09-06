@@ -4,7 +4,6 @@
 html,
 body,
 #root {
-  background-color: #0d1a15 !important;
   margin: 0;
   padding: 0;
 }
@@ -33,6 +32,7 @@ body {
   font-family: "Bodoni Moda", serif;
   font-optical-sizing: auto;
   font-variation-settings: "opsz" 14, "wght" 400;
+  background-color: #1e362d;
 }
 
 /* Rastgele Belirme Karakter Stili */
