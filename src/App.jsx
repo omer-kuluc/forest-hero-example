@@ -40,6 +40,7 @@ function App() {
   const handleEntranceAnimation = () => {
     const tl = gsap.timeline();
 
+    // Animasyon başlamadan önce her şeyi görünür kıl ama opacity 0'dan başla
     tl.set([".background-video", ".navbar", ".hero-container"], { visibility: "visible" });
 
     tl.to(".background-video", {
@@ -50,21 +51,22 @@ function App() {
       .to(".navbar", {
         opacity: 1,
         y: 0,
-        duration: 1,
+        duration: 0.8,
         ease: "power2.out"
       }, "-=0.5")
+      // DESKTOP VE TABLET İÇİN HIZLANDIRILMIŞ REVEAL (each: 0.01 ve duration düşürüldü)
       .to(".desktop-only .reveal-char", {
         opacity: 1,
-        duration: 0.05,
+        duration: 0.02,
         stagger: {
-          each: 0.03,
+          each: 0.01,
           from: "random"
         }
-      }, "-=0.5")
+      }, "-=0.6")
       .to(".hero-container", {
         opacity: 1,
         y: 0,
-        duration: 1.5,
+        duration: 1.2,
         ease: "power3.out"
       }, "-=0.8");
   };
@@ -98,6 +100,7 @@ function App() {
           stagger: 0.1,
           ease: "power2.out"
         }, "-=0.4")
+        // MOBİL İÇİN AYARLARIN (0.01) KORUNMASI
         .to(".mobile-drawer .reveal-char", {
           opacity: 1,
           duration: 0.01,

@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap');
 
+/* FLAŞ ÖNLEYİCİ: Sayfa daha yüklenirken beyazlığı keser */
+html,
+body,
+#root {
+  background-color: #0d1a15 !important;
+  margin: 0;
+  padding: 0;
+}
+
 /* --- RESET CSS --- */
 *,
 *::before,
@@ -20,7 +29,6 @@
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  background-color: #0d1a15;
   color: white;
   font-family: "Bodoni Moda", serif;
   font-optical-sizing: auto;
@@ -33,7 +41,6 @@ body {
   white-space: pre;
   opacity: 0;
   color: inherit;
-  /* Üst elementin rengini alması için */
 }
 
 /* Mobil logo görünürlüğü */
@@ -224,7 +231,6 @@ h6 {
   border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
   color: #d1d1d1;
-  /* Başlangıç rengi */
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
@@ -257,7 +263,6 @@ h6 {
     align-items: center;
     gap: 0.4rem;
     color: #d1d1d1;
-    /* Başlangıç rengi */
     font-size: 1rem;
     cursor: pointer;
   }
