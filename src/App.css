@@ -267,6 +267,12 @@ h6 {
     cursor: pointer;
   }
 
+  .contact-btn {
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
   .hero-title {
     font-size: clamp(6rem, 12vw, 12rem);
   }
