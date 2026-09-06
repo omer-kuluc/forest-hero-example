@@ -57,9 +57,9 @@ function App() {
       // DESKTOP VE TABLET İÇİN HIZLANDIRILMIŞ REVEAL (each: 0.01 ve duration düşürüldü)
       .to(".desktop-only .reveal-char", {
         opacity: 1,
-        duration: 0.02,
+        duration: 0.15,
         stagger: {
-          each: 0.01,
+          each: 0.02,
           from: "random"
         }
       }, "-=0.6")
